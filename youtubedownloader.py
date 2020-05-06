@@ -1,9 +1,7 @@
 from pytube import YouTube
 
 
-
 def download_youtubevideo(URL):
-
     """
     This function takes a URL and leads the user through downloading it.
     """
@@ -25,5 +23,5 @@ def download_youtubevideo(URL):
 
 
 if __name__ == "__main__":
-    url = input("Enter Youtube URL:")
+    url = input("Enter Youtube URL: ")
     download_youtubevideo(url)
