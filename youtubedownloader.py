@@ -1,31 +1,27 @@
 from pytube import YouTube
 
-print("Creating youtube object...")
-yt = YouTube("https://www.youtube.com/watch?v=dxfu33O_nT4")
+def download_youtubevideo(url):
+    print("Creating YouTube Object from URL...")
+    yt = YouTube(url)
 
-print("Attempting to download...")
-yt.streams[0].download()
+    print("Which itag would you like to Download?")
+    print(yt.streams)
+    streamindex = int(input("Select itag using array indexing: "))
 
-"""
+    print("Attempting to Download...")
+    yt.streams[streamindex].download()
 
-print("youtube object created...")
-print("getting itags...")
-
-filtered = yt.streams.filter(only_audio=True).filter(subtype='mp4')
-
-print(filtered)
-
-print("printing filtered[0]")
-
-print(filtered[0])
+    print("Done!")
 
 
-
-filtered[0].download()
+if __name__ == "__main__":
+    url = input("Enter Youtube URL:")
+    download_youtubevideo(url)
 
 
 
-print("Done")
 
 
- """
+
+
+
