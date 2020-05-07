@@ -1,10 +1,8 @@
-import speech_recognition as sr
+from youtube_transcript_api import YouTubeTranscriptApi
 
-r = sr.Recognizer()
+video_id = "kuOEpC4u6Tg"
 
-path = "audio.wav"
 
-with sr.AudioFile(path) as source:
-    audio = r.record(source)
+print(YouTubeTranscriptApi.get_transcript(video_id))
 
-    print(r.recognize_google(audio))
+
