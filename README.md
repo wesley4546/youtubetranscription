@@ -26,7 +26,7 @@ The `youtubevideo` class has the following variables:
  * `transcription` (auto-generated transcripts of video)
 
 
-## Usefull Links:
+## Useful Links
 https://python.gotrained.com/youtube-api-extracting-comments/
 
 
