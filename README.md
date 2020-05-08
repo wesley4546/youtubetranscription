@@ -13,17 +13,17 @@ It's rather easy!
 
 ### `youtubevideo` class
 The `youtubevideo` class has the following variable:
- * url (the video's URL)
- * title (title of video)
- * description (description of video)
- * views (number of views of video)
- * published (date of publication)
- * likes (likes of video)
- * dislikes (dislikes of video)
- * channel_name (name of channel)
- * channel_url (URL of channel from video)
- * channel_subscribers (number of subscribers)
- * transcription (auto-generated transcripts of video)
+ * `url` (the video's URL)
+ * `title` (title of video)
+ * `description` (description of video)
+ * `views` (number of views of video)
+ * `published` (date of publication)
+ * `likes` (likes of video)
+ * `dislikes` (dislikes of video)
+ * `channel_name` (name of channel)
+ * `channel_url` (URL of channel from video)
+ * `channel_subscribers` (number of subscribers)
+ * `transcription` (auto-generated transcripts of video)
 
 ## References
 Big shout-out to Abdou Rockikz for their post found: https://www.thepythoncode.com/article/get-youtube-data-python
