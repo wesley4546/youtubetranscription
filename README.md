@@ -25,5 +25,10 @@ The `youtubevideo` class has the following variables:
  * `channel_subscribers` (number of subscribers)
  * `transcription` (auto-generated transcripts of video)
 
+
+## Usefull Links:
+https://python.gotrained.com/youtube-api-extracting-comments/
+
+
 ## References
 Big shout-out to Abdou Rockikz for their post found: https://www.thepythoncode.com/article/get-youtube-data-python
