@@ -3,5 +3,12 @@
 ## Introduction
 This repository houses a progam that can extract key details and the auto-generated transcriptions from youtube videos. It uses `BeautifulSoup` for the details and `youtube_transcript_api` for the transcriptions. (All which are found in the `requirements.txt`)
 
+## Tutorial
+It's rather easy!
+
+ 1) Run the `main.py` code in a python interactive console
+ 1) Enter in the YouTube URL
+ 1) It will return a `youtubevideo` object named `youtube_video` which you can then access the information from.
+
 ## References
 Big shout-out to Abdou Rockikz for their post found: https://www.thepythoncode.com/article/get-youtube-data-python
