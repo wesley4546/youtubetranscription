@@ -12,7 +12,7 @@ It's rather easy!
 
 
 ### `youtubevideo` class
-The `youtubevideo` object has the following variable:
+The `youtubevideo` class has the following variable:
  * url (the video's URL)
  * title (title of video)
  * description (description of video)
