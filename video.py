@@ -1,9 +1,11 @@
-import requests
-from bs4 import BeautifulSoup as bs
+from source.youtubescraper import get_video_info
+from source.transcriptor import get_transcription
 
-class video:
+
+# Creation of youtubevideo class
+class youtubevideo:
     def __init__(self, url, title, description, views, published, likes, dislikes, channel_name, channel_url,
-                 channel_subscribers):
+                 channel_subscribers, transcription):
         self.url = url
         self.title = title
         self.description = description
@@ -14,60 +16,26 @@ class video:
         self.channel_name = channel_name
         self.channel_url = channel_url
         self.channel_subscribers = channel_subscribers
+        self.transcription = transcription
 
-
-def get_video_info(url):
-    # from https://www.thepythoncode.com/article/get-youtube-data-python
-    print("Downloading URL...")
-    # download HTML code
-    content = requests.get(url)
-
-    # create beautiful soup object to parse HTML
-    soup = bs(content.content, "html.parser")
-    print("Initializing Variables...")
-    # initialize the result
-    result = {}
-
-    print("Extracting values...")
-    # video title
-    result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
-
-    # video views (converted to integer)
-    result['views'] = int(soup.find("div", attrs={"class": "watch-view-count"}).text[:-6].replace(",", ""))
-
-    # video description
-    result['description'] = soup.find("p", attrs={"id": "eow-description"}).text
-
-    # date published
-    result['date_published'] = soup.find("strong", attrs={"class": "watch-time-text"}).text
-
-    # number of likes as integer
-    result['likes'] = int(soup.find("button", attrs={"title": "I like this"}).text.replace(",", ""))
-
-    # number of dislikes as integer
-    result['dislikes'] = int(soup.find("button", attrs={"title": "I dislike this"}).text.replace(",", ""))
-
-    # channel details
-    channel_tag = soup.find("div", attrs={"class": "yt-user-info"}).find("a")
-    # channel name
-    channel_name = channel_tag.text
-    # channel URL
-    channel_url = f"https://www.youtube.com{channel_tag['href']}"
-    # number of subscribers as str
-    channel_subscribers = soup.find("span", attrs={"class": "yt-subscriber-count"}).text.strip()
-    result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
-    # return the result
-    print("Done!")
-    return result
+    def get_like_ratio(self):
+        # Gets the ratio of likes to dislikes
+        ratio = self.likes / self.dislikes
+        return ratio
 
 
 if __name__ == '__main__':
-
+    # Takes a YouTube URL as input
     input_url = input("Enter YouTube URL: ")
 
+    # Extracts the video information
     youtube_video_info = get_video_info(input_url)
 
-    youtube_video = video(
+    # Gets the YouTube transcriptions
+    clean_transcription = get_transcription(input_url)
+
+    # Stores them as a youtubevideo object
+    youtube_video = youtubevideo(
         url=input_url,
         title=youtube_video_info['title'],
         description=youtube_video_info['description'],
@@ -77,5 +45,8 @@ if __name__ == '__main__':
         dislikes=youtube_video_info['dislikes'],
         channel_name=youtube_video_info['channel']['name'],
         channel_url=youtube_video_info['channel']['url'],
-        channel_subscribers=youtube_video_info['channel']['subscribers']
+        channel_subscribers=youtube_video_info['channel']['subscribers'],
+        transcription=clean_transcription
     )
+    print("Done!")
+    print("Access your video through 'youtube_video' variable")

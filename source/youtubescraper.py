@@ -1,27 +1,27 @@
-# from https://www.thepythoncode.com/article/get-youtube-data-python
 import requests
 from bs4 import BeautifulSoup as bs
 
-# sample youtube video url
-video_url = "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-# get the html content
-content = requests.get(video_url)
-# create bs object to parse HTML
-soup = bs(content.content, "html.parser")
-# write all HTML code into a file
-open("video.html", "w", encoding='utf8').write(content.text)
-
-print(soup.find("div", attrs={'class': 'watch-view-count'}).text)
-
 
 def get_video_info(url):
+    """
+      from https://www.thepythoncode.com/article/get-youtube-data-python
+
+      Function takes a YouTube URL and extracts the different parts of the video:
+      title, view number, description, date-published, likes, dislikes, channel name,
+      channel url, and channel subscribers. Returned as python dictionary.
+    """
+    # from https://www.thepythoncode.com/article/get-youtube-data-python
+    print("Downloading URL...")
     # download HTML code
     content = requests.get(url)
+
     # create beautiful soup object to parse HTML
     soup = bs(content.content, "html.parser")
+    print("Initializing Variables...")
     # initialize the result
     result = {}
 
+    print("Extracting Values...")
     # video title
     result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
 
@@ -49,20 +49,6 @@ def get_video_info(url):
     # number of subscribers as str
     channel_subscribers = soup.find("span", attrs={"class": "yt-subscriber-count"}).text.strip()
     result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
+
     # return the result
     return result
-
-
-if __name__ == "__main__":
-    # get the data
-    data = get_video_info(input("Youtube URL: "))
-    # print in nice format
-    print(f"Title: {data['title']}")
-    print(f"Views: {data['views']}")
-    print(f"\nDescription: {data['description']}\n")
-    print(data['date_published'])
-    print(f"Likes: {data['likes']}")
-    print(f"Dislikes: {data['dislikes']}")
-    print(f"\nChannel Name: {data['channel']['name']}")
-    print(f"Channel URL: {data['channel']['url']}")
-    print(f"Channel Subscribers: {data['channel']['subscribers']}")
