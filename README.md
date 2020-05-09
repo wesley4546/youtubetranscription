@@ -8,7 +8,7 @@ It's rather easy!
 
  1) Run the `main.py` code in a python interactive console
  1) Enter in the YouTube URL
- 1) It will return a `youtubevideo` object named `youtube_video` which you can then access the information from.
+ 1) It will return a `youtubevideo` object named `yt_v` which you can then access the information from.
 
 
 ### `youtubevideo` class
