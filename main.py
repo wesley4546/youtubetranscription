@@ -35,7 +35,7 @@ if __name__ == '__main__':
     clean_transcription = get_transcription(input_url)
 
     # Stores them as a youtubevideo object
-    youtube_video = youtubevideo(
+    yt_v = youtubevideo(
         url=input_url,
         title=youtube_video_info['title'],
         description=youtube_video_info['description'],
@@ -49,4 +49,4 @@ if __name__ == '__main__':
         transcription=clean_transcription
     )
     print("Done!")
-    print("Access your video through 'youtube_video' variable")
+    print("Access your video through 'yt_v' variable")
