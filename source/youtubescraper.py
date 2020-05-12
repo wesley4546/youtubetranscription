@@ -12,17 +12,14 @@ def get_video_info(url):
       channel url, and channel subscribers. Returned as python dictionary.
     """
     # from https://www.thepythoncode.com/article/get-youtube-data-python
-    print("Downloading URL...")
     # download HTML code
     content = requests.get(url)
 
     # create beautiful soup object to parse HTML
     soup = bs(content.content, "html.parser")
-    print("Initializing Variables...")
     # initialize the result
     result = {}
 
-    print("Extracting Values...")
     # video title
     result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
 

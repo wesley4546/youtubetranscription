@@ -1,27 +1,31 @@
 import urllib.request
 from bs4 import BeautifulSoup
 
-list_of_urls = []
 
-textToSearch = 'corona information'
+def get_keyword_urls(keyword):
 
-# urlify's the textToSearch
-query = urllib.parse.quote(textToSearch)
+    #Initiates blank list
+    list_of_urls = []
 
-# Constructs URL
-url = "https://www.youtube.com/results?search_query=" + query
+    # urlify's the textToSearch
+    query = urllib.parse.quote(keyword)
 
-# Get's a response
-response = urllib.request.urlopen(url)
+    # Constructs URL
+    url = "https://www.youtube.com/results?search_query=" + query
 
-# Saves response
-html = response.read()
+    # Get's a response
+    response = urllib.request.urlopen(url)
 
-# Creates Soup Object
-soup = BeautifulSoup(html, 'html.parser')
+    # Saves response
+    html = response.read()
 
-# Loops through
-for vid in soup.findAll(attrs={'class': 'yt-uix-tile-link'}):
-    if not vid['href'].startswith("https://googleads.g.doubleclick.net/"):
-        url = ('https://www.youtube.com' + vid['href'])
-        list_of_urls.append(url)
+    # Creates Soup Object
+    soup = BeautifulSoup(html, 'html.parser')
+
+    # Loops through
+    for vid in soup.findAll(attrs={'class': 'yt-uix-tile-link'}):
+        if not vid['href'].startswith("https://googleads.g.doubleclick.net/"):
+            url = ('https://www.youtube.com' + vid['href'])
+            list_of_urls.append(url)
+
+    return list_of_urls
