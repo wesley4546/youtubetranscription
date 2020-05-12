@@ -1,3 +1,4 @@
+import csv
 from source.youtubescraper import get_video_info
 from source.transcriptor import get_transcription
 
@@ -24,8 +25,25 @@ class youtubevideo:
         return ratio
 
 
+def paste_filename(keyword):
+    filename = keyword + "_videos.csv"
+
+    return filename
+
+
 if __name__ == '__main__':
     # Takes a YouTube URL as input
+
+    input_keyword = input("Enter Keyword: ")
+
+
+
+
+
+
+
+
+
     input_url = input("Enter YouTube URL: ")
 
     # Extracts the video information
@@ -33,6 +51,17 @@ if __name__ == '__main__':
 
     # Gets the YouTube transcriptions
     clean_transcription = get_transcription(input_url)
+
+    # Data used as each column
+    csv_column_names = ['keyword','url', 'title', 'description', 'views', 'published', 'likes', 'dislikes', 'channel_name', 'channel_url',
+     'channel_subscribers', 'transcription']
+
+    #Creates a file
+    print("Creating New CSV File...")
+    with open(paste_filename(input_keyword), 'w', newline = '', encoding = 'utf-8') as file:
+        thewriter = csv.writer(file)
+        thewriter.writerow(csv_column_names)
+
 
     # Stores them as a youtubevideo object
     yt_v = youtubevideo(
@@ -48,5 +77,21 @@ if __name__ == '__main__':
         channel_subscribers=youtube_video_info['channel']['subscribers'],
         transcription=clean_transcription
     )
-    print("Done!")
-    print("Access your video through 'yt_v' variable")
+
+    csv_file_rows = (input_keyword,
+                     yt_v.url,
+                     yt_v.title,
+                     yt_v.description,
+                     yt_v.views,
+                     yt_v.published,
+                     yt_v.likes,
+                     yt_v.dislikes,
+                     yt_v.channel_name,
+                     yt_v.channel_url,
+                     yt_v.channel_subscribers,
+                     yt_v.transcription)
+
+    print("Appending CSV File...")
+    with open(paste_filename(input_keyword), 'a', newline = '', encoding = 'utf-8') as file:
+        thewriter = csv.writer(file)
+        thewriter.writerow(csv_file_rows)
