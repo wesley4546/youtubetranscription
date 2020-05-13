@@ -7,8 +7,8 @@ This repository houses a progam that can extract key details and the auto-genera
 It's rather easy!
 
  1) Run the `main.py` code in a python interactive console
- 1) Enter in the YouTube URL
- 1) It will return a `youtubevideo` object named `yt_v` which you can then access the information from.
+ 1) Enter what you would like to search
+ 1) It will get the youtube videos from your search and download the different details of each video as well as the transcript into a csv file format.
 
 
 ### `youtubevideo` class
