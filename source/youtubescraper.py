@@ -70,7 +70,7 @@ def get_video_info(url):
         return result
 
 
-def get_youtube_url(keyword):
+def get_youtube_urls(keyword):
     list_of_urls = []
 
     query = urllib.parse.quote(keyword)

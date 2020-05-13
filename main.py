@@ -2,7 +2,7 @@ import time
 import csv
 from source.youtubescraper import get_video_info
 from source.get_transcription import get_transcription
-from source.youtubeurlsearch import get_keyword_urls
+from source.youtubescraper import get_youtube_urls
 
 
 # Creation of youtubevideo class
@@ -56,7 +56,7 @@ if __name__ == '__main__':
         writer.writerow(csv_column_names)
 
     print("Getting YouTube URLs based off keyword...")
-    list_of_urls = get_keyword_urls(input_keyword)
+    list_of_urls = get_youtube_urls(input_keyword)
 
     list_of_urls_index_counter = 0
 
