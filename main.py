@@ -52,8 +52,8 @@ if __name__ == '__main__':
     # Creates a file
     print("Creating New CSV File...")
     with open(paste_filename(input_keyword), 'w', newline='', encoding='utf-8') as file:
-        thewriter = csv.writer(file)
-        thewriter.writerow(csv_column_names)
+        writer = csv.writer(file)
+        writer.writerow(csv_column_names)
 
     print("Getting YouTube URLs based off keyword...")
     list_of_urls = get_keyword_urls(input_keyword)
@@ -86,7 +86,7 @@ if __name__ == '__main__':
         # Increments index counter
         list_of_urls_index_counter += 1
 
-        #
+        # Creates the row in which will be appended to the CSV file
         csv_file_rows = (input_keyword,
                          yt_v.url,
                          yt_v.title,
@@ -101,8 +101,8 @@ if __name__ == '__main__':
                          yt_v.transcription)
 
         with open(paste_filename(input_keyword), 'a', newline='', encoding='utf-8') as file:
-            thewriter = csv.writer(file)
-            thewriter.writerow(csv_file_rows)
+            writer = csv.writer(file)
+            writer.writerow(csv_file_rows)
 
         print(f"URL {url_number} done")
         url_number += 1
