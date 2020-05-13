@@ -11,9 +11,10 @@ def get_video_info(url):
       title, view number, description, date-published, likes, dislikes, channel name,
       channel url, and channel subscribers. Returned as python dictionary.
     """
-    """
-    TODO: This works for most videos however there are videos that come up that have video info but are reported missing
-    """
+
+    # TODO: This works for most videos however there are videos that come up
+    #       that have video info but are reported missing
+
     # from https://www.thepythoncode.com/article/get-youtube-data-python
     # download HTML code
     try:
