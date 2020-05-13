@@ -61,13 +61,9 @@ def get_video_info(url):
                   'date_published': "No Video Information Found",
                   'likes': "No Video Information Found",
                   'dislikes': "No Video Information Found"}
-        # channel details
         channel_tag = 'No Video Information Found'
-        # channel name
         channel_name = 'No Video Information Found'
-        # channel URL
         channel_url = 'No Video Information Found'
-        # number of subscribers as str
         channel_subscribers = 'No Video Information Found'
         result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
 
