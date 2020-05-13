@@ -3,8 +3,7 @@ from bs4 import BeautifulSoup
 
 
 def get_keyword_urls(keyword):
-
-    #Initiates blank list
+    # Initiates blank list
     list_of_urls = []
 
     # urlify's the textToSearch

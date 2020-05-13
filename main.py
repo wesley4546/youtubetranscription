@@ -1,8 +1,9 @@
 import time
 import csv
 from source.youtubescraper import get_video_info
-from source.transcriptor import get_transcription
+from source.get_transcription import get_transcription
 from source.youtubeurlsearch import get_keyword_urls
+
 
 # Creation of youtubevideo class
 class youtubevideo:
@@ -25,9 +26,13 @@ class youtubevideo:
         ratio = self.likes / self.dislikes
         return ratio
 
+
 # Creates a function to create a file name based off the keyword
 def paste_filename(keyword):
-    filename = keyword + "_videos.csv"
+
+    cleaned_keyword = keyword.replace(' ', '_')
+
+    filename = cleaned_keyword + "_videos.csv"
 
     return filename
 
@@ -40,22 +45,23 @@ if __name__ == '__main__':
     input_keyword = input("Enter Keyword: ")
 
     # Data used as each column
-    csv_column_names = ['keyword','url', 'title', 'description', 'views', 'published', 'likes', 'dislikes', 'channel_name', 'channel_url',
-     'channel_subscribers', 'transcription']
+    csv_column_names = ['keyword', 'url', 'title', 'description', 'views', 'published', 'likes', 'dislikes',
+                        'channel_name', 'channel_url',
+                        'channel_subscribers', 'transcription']
 
-    #Creates a file
+    # Creates a file
     print("Creating New CSV File...")
-    with open(paste_filename(input_keyword), 'w', newline = '', encoding = 'utf-8') as file:
+    with open(paste_filename(input_keyword), 'w', newline='', encoding='utf-8') as file:
         thewriter = csv.writer(file)
         thewriter.writerow(csv_column_names)
 
     print("Getting YouTube URLs based off keyword...")
     list_of_urls = get_keyword_urls(input_keyword)
 
+    list_of_urls_index_counter = 0
 
     for url in list_of_urls:
-
-        print(f"URL {url_number} started...")
+        print(f"URL {url_number} started")
         # Extracts the video information
         youtube_video_info = get_video_info(url)
 
@@ -64,7 +70,7 @@ if __name__ == '__main__':
 
         # Stores them as a youtubevideo object
         yt_v = youtubevideo(
-            url=input_url,
+            url=list_of_urls[list_of_urls_index_counter],
             title=youtube_video_info['title'],
             description=youtube_video_info['description'],
             views=youtube_video_info['views'],
@@ -76,6 +82,9 @@ if __name__ == '__main__':
             channel_subscribers=youtube_video_info['channel']['subscribers'],
             transcription=clean_transcription
         )
+
+        # Increments index counter
+        list_of_urls_index_counter += 1
 
         #
         csv_file_rows = (input_keyword,
@@ -91,22 +100,10 @@ if __name__ == '__main__':
                          yt_v.channel_subscribers,
                          yt_v.transcription)
 
-
         with open(paste_filename(input_keyword), 'a', newline='', encoding='utf-8') as file:
             thewriter = csv.writer(file)
             thewriter.writerow(csv_file_rows)
 
-        print(f"URL {url_number} done...")
+        print(f"URL {url_number} done")
         url_number += 1
-        time.sleep(5)
-
-
-
-
-
-
-
-
-
-
-
+        time.sleep(3)

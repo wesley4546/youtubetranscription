@@ -13,43 +13,65 @@ def get_video_info(url):
     """
     # from https://www.thepythoncode.com/article/get-youtube-data-python
     # download HTML code
-    content = requests.get(url)
+    try:
 
-    # create beautiful soup object to parse HTML
-    soup = bs(content.content, "html.parser")
-    # initialize the result
-    result = {}
+        content = requests.get(url)
 
-    # video title
-    result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
+        # create beautiful soup object to parse HTML
+        soup = bs(content.content, "html.parser")
+        # initialize the result
+        result = {}
 
-    # video views (converted to integer)
-    result['views'] = int(soup.find("div", attrs={"class": "watch-view-count"}).text[:-6].replace(",", ""))
+        # video title
+        result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
 
-    # video description
-    result['description'] = soup.find("p", attrs={"id": "eow-description"}).text
+        # video views (converted to integer)
+        result['views'] = int(soup.find("div", attrs={"class": "watch-view-count"}).text[:-6].replace(",", ""))
 
-    # date published
-    result['date_published'] = soup.find("strong", attrs={"class": "watch-time-text"}).text
+        # video description
+        result['description'] = soup.find("p", attrs={"id": "eow-description"}).text
 
-    # number of likes as integer
-    result['likes'] = int(soup.find("button", attrs={"title": "I like this"}).text.replace(",", ""))
+        # date published
+        result['date_published'] = soup.find("strong", attrs={"class": "watch-time-text"}).text
 
-    # number of dislikes as integer
-    result['dislikes'] = int(soup.find("button", attrs={"title": "I dislike this"}).text.replace(",", ""))
+        # number of likes as integer
+        result['likes'] = int(soup.find("button", attrs={"title": "I like this"}).text.replace(",", ""))
 
-    # channel details
-    channel_tag = soup.find("div", attrs={"class": "yt-user-info"}).find("a")
-    # channel name
-    channel_name = channel_tag.text
-    # channel URL
-    channel_url = f"https://www.youtube.com{channel_tag['href']}"
-    # number of subscribers as str
-    channel_subscribers = soup.find("span", attrs={"class": "yt-subscriber-count"}).text.strip()
-    result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
+        # number of dislikes as integer
+        result['dislikes'] = int(soup.find("button", attrs={"title": "I dislike this"}).text.replace(",", ""))
 
-    # return the result
-    return result
+        # channel details
+        channel_tag = soup.find("div", attrs={"class": "yt-user-info"}).find("a")
+        # channel name
+        channel_name = channel_tag.text
+        # channel URL
+        channel_url = f"https://www.youtube.com{channel_tag['href']}"
+        # number of subscribers as str
+        channel_subscribers = soup.find("span", attrs={"class": "yt-subscriber-count"}).text.strip()
+        result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
+
+        # return the result
+        return result
+    except:
+        # Returns an no video information found dictionary
+        print("No Video Information Found.")
+        result = {'title': "No Video Information Found",
+                  'views': "No Video Information Found",
+                  'description': "No Video Information Found",
+                  'date_published': "No Video Information Found",
+                  'likes': "No Video Information Found",
+                  'dislikes': "No Video Information Found"}
+        # channel details
+        channel_tag = 'No Video Information Found'
+        # channel name
+        channel_name = 'No Video Information Found'
+        # channel URL
+        channel_url = 'No Video Information Found'
+        # number of subscribers as str
+        channel_subscribers = 'No Video Information Found'
+        result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
+
+        return result
 
 
 def get_youtube_url(keyword):
