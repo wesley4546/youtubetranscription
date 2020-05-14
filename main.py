@@ -38,7 +38,14 @@ def paste_filename(keyword):
 
 
 # MAIN PROGRAM
-def keyword_video_extraction_program():
+def search_video_extraction_program():
+    """
+    Function starts the process of extracting videos from YouTube using a user-input search
+
+    I'm not sure of any restrictions when it comes to API calls from other modules in this program so I have a delay
+    of 2 seconds between each function call in the looping process and a 2 second delay between each URL. If this causes
+    and issue then it can certainly be changed.
+    """
     url_number = 1
 
     # Takes a YouTube URL as input
@@ -56,6 +63,7 @@ def keyword_video_extraction_program():
         writer.writerow(csv_column_names)
 
     print("Getting YouTube URLs based off search...")
+
     # Gets the list of URLs based off the keyword received
     list_of_urls = get_youtube_urls(input_keyword)
 
@@ -72,10 +80,11 @@ def keyword_video_extraction_program():
 
         # Extracts the video information
         youtube_video_info = get_video_info(url)
-        time.sleep(3)
+        time.sleep(2)
+
         # Gets the YouTube transcriptions
         clean_transcription = get_transcription(url)
-        time.sleep(3)
+        time.sleep(2)
 
         # Stores them as a youtubevideo object
         yt_v = youtubevideo(
@@ -115,11 +124,13 @@ def keyword_video_extraction_program():
             writer.writerow(csv_file_rows)
 
         print(f"{url_number} / {length_of_URLs} YouTube URLs Complete.")
+
+        # Increments URL number
         url_number += 1
-        time.sleep(3)
+        time.sleep(2)
 
 
 if __name__ == '__main__':
     print("Welcome to the YouTube Transcription Program found at https://github.com/wesley4546/youtubetranscription")
-    keyword_video_extraction_program()
-
+    print("Feel free to make an issue on GitHub if you find a bug or have a suggestion")
+    search_video_extraction_program()

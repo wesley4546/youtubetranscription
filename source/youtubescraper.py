@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup as bs
 
 def get_video_info(url):
     """
-      from https://www.thepythoncode.com/article/get-youtube-data-python
+      adapted from https://www.thepythoncode.com/article/get-youtube-data-python
 
       Function takes a YouTube URL and extracts the different parts of the video:
       title, view number, description, date-published, likes, dislikes, channel name,
@@ -16,39 +16,51 @@ def get_video_info(url):
     # TODO: This works for most videos however there are videos that come up
     #       that have video info but are reported missing
 
-    # from https://www.thepythoncode.com/article/get-youtube-data-python
-    # download HTML code
+    # adapted from https://www.thepythoncode.com/article/get-youtube-data-python
+    # Starts the process of scraping the video information
     try:
 
+        # requests URL
         content = requests.get(url)
 
         # create beautiful soup object to parse HTML
         soup = bs(content.content, "html.parser")
+
         # initialize the result
         result = {}
 
         # video title
         result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
 
+        # try-catch for finding video views using the HTML 'watch-view-count'
         try:
             # video views (converted to integer)
             result['views'] = int(
                 soup.find("div", attrs={"class": "watch-view-count"}).text[:-6].replace(",", ""))
         except:
             try:
+                # Tries to find the views using the 'stat view-count'
                 result['views'] = int(
                     soup.find("span", attrs={"class": "stat view-count"}).text[:-6].replace(",", "").replace("views",
                                                                                                              ""))
             except:
+                # If views can't be found
                 result['views'] = "Not Found (Perhaps Hidden)"
 
         # video description
-        result['description'] = soup.find("p", attrs={"id": "eow-description"}).text
+        try:
+            result['description'] = soup.find("p", attrs={"id": "eow-description"}).text
+        except:
+            result['description'] = "Not Found (Perhaps Hidden)"
 
         # date published
-        result['date_published'] = soup.find("strong", attrs={"class": "watch-time-text"}).text.replace(
-            "Published on ", "").replace("Premiered ", "")
+        try:
+            result['date_published'] = soup.find("strong", attrs={"class": "watch-time-text"}).text.replace(
+                "Published on ", "").replace("Premiered ", "")
+        except:
+            result['date_published'] = "Not Found (Perhaps Hidden)"
 
+        # try-catch for finding the likes and dislikes
         try:
             # number of likes as integer
             result['likes'] = int(soup.find("button", attrs={"title": "I like this"}).text.replace(",", ""))
@@ -80,7 +92,7 @@ def get_video_info(url):
                 # pattern to extract numbers our of like count
                 pattern_dislike2 = re.compile(r'[0-9]+[0-9]')
 
-                # Finds the html code with likecount
+                # Finds the html code with dislikeCount
                 matches_in_html_dislike = pattern_dislike.findall(video_html)
 
                 # Extracts the numbers from the html code
@@ -92,13 +104,24 @@ def get_video_info(url):
                 result['dislikes'] = "Not Found (Perhaps Hidden)"
 
         # channel details
-        channel_tag = soup.find("div", attrs={"class": "yt-user-info"}).find("a")
-        # channel name
-        channel_name = channel_tag.text
-        # channel URL
-        channel_url = f"https://www.youtube.com{channel_tag['href']}"
+        try:
+            channel_tag = soup.find("div", attrs={"class": "yt-user-info"}).find("a")
+        except:
+            channel_tag = "Not Found (Perhaps Hidden)"
 
-        # Some youtubers can hide their subscription count from public - This tests that
+        # channel name
+        try:
+            channel_name = channel_tag.text
+        except:
+            channel_name = "Not Found (Perhaps Hidden)"
+
+        # channel URL
+        try:
+            channel_url = f"https://www.youtube.com{channel_tag['href']}"
+        except:
+            channel_url = "Not Found (Perhaps Hidden)"
+
+        # try-catch for subscription count (youtube user can hide these)
         try:
             channel_subscribers = soup.find("span", attrs={"class": "yt-subscriber-count"}).text.strip()
         except:
@@ -109,6 +132,9 @@ def get_video_info(url):
         # return the result
         print("Video Information Found.")
         return result
+
+
+    # If none of the information can be found will result in this a blank video info
     except:
         # Returns an no video information found dictionary
         print("No Video Information Found.")
@@ -128,8 +154,12 @@ def get_video_info(url):
 
 
 def get_youtube_urls(keyword):
+    """
+    Function takes a keyword and searches youtube to obtain a list of URLs
+    """
     list_of_urls = []
 
+    # Parses the keyword
     query = urllib.parse.quote(keyword)
 
     # Constructs URL
@@ -144,7 +174,7 @@ def get_youtube_urls(keyword):
     # Creates Soup Object
     soup = bs(html, 'html.parser')
 
-    # Loops through
+    # Loops through URLs and appends them to list
     for vid in soup.findAll(attrs={'class': 'yt-uix-tile-link'}):
         if not vid['href'].startswith("https://googleads.g.doubleclick.net/"):
             url = ('https://www.youtube.com' + vid['href'])
