@@ -50,11 +50,17 @@ def get_video_info(url):
         channel_name = channel_tag.text
         # channel URL
         channel_url = f"https://www.youtube.com{channel_tag['href']}"
-        # number of subscribers as str
-        channel_subscribers = soup.find("span", attrs={"class": "yt-subscriber-count"}).text.strip()
+
+        # Some youtubers can hide their subscribtion count from public - This tests that
+        try:
+            channel_subscribers = soup.find("span", attrs={"class": "yt-subscriber-count"}).text.strip()
+        except:
+            channel_subscribers = "No Subscribers Found (Perhaps Hidden)"
+
         result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
 
         # return the result
+        print("Video Information Found.")
         return result
     except:
         # Returns an no video information found dictionary

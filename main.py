@@ -29,7 +29,6 @@ class youtubevideo:
 
 # Creates a function to create a file name based off the keyword
 def paste_filename(keyword):
-
     cleaned_keyword = keyword.replace(' ', '_')
 
     filename = cleaned_keyword + "_videos.csv"
@@ -37,8 +36,8 @@ def paste_filename(keyword):
     return filename
 
 
-if __name__ == '__main__':
-
+# MAIN PROGRAM
+def keyword_video_extraction_program():
     url_number = 1
 
     # Takes a YouTube URL as input
@@ -56,17 +55,26 @@ if __name__ == '__main__':
         writer.writerow(csv_column_names)
 
     print("Getting YouTube URLs based off keyword...")
+    # Gets the list of URLs based off the keyword received
     list_of_urls = get_youtube_urls(input_keyword)
 
+    # The number of URLS found
+    length_of_URLs = len(list_of_urls)
+
+    print(f"{length_of_URLs} YouTube video URLs found from keyword")
+
+    # Keeps track of the iteration of the URLS
     list_of_urls_index_counter = 0
 
     for url in list_of_urls:
-        print(f"URL {url_number} started")
+        print(f"Starting URL {url_number}...")
+
         # Extracts the video information
         youtube_video_info = get_video_info(url)
-
+        time.sleep(5)
         # Gets the YouTube transcriptions
         clean_transcription = get_transcription(url)
+        time.sleep(5)
 
         # Stores them as a youtubevideo object
         yt_v = youtubevideo(
@@ -100,10 +108,16 @@ if __name__ == '__main__':
                          yt_v.channel_subscribers,
                          yt_v.transcription)
 
+        # Appends the CSV file with the found video information/transcripts
         with open(paste_filename(input_keyword), 'a', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             writer.writerow(csv_file_rows)
 
-        print(f"URL {url_number} done")
+        print(f"{url_number} / {length_of_URLs} YouTube URLs Complete.")
         url_number += 1
-        time.sleep(3)
+        time.sleep(5)
+
+
+if __name__ == '__main__':
+    # Executes video extraction program
+    keyword_video_extraction_program()
