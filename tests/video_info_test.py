@@ -2,7 +2,7 @@ import requests
 import urllib.request
 import re
 from bs4 import BeautifulSoup as bs
-from source.youtube_scraper import get_video_info
+from source.youtube_scraping_functions import get_video_info
 
 """
 This is a test to check if a URL is outputting the correct video information

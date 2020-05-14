@@ -1,9 +1,9 @@
 import time
 import csv
 import sys
-from source.youtube_scraper import get_video_info
+from source.youtube_scraping_functions import get_video_info
 from source.youtube_get_transcription import get_transcription
-from source.youtube_scraper import get_youtube_urls
+from source.youtube_scraping_functions import get_youtube_urls
 
 
 # Creation of youtubevideo class
