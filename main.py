@@ -88,11 +88,11 @@ def search_video_extraction_program():
 
         # Extracts the video information
         youtube_video_info = get_video_info(url)
-        time.sleep(2)
+        time.sleep(5)
 
         # Gets the YouTube transcriptions
         clean_transcription = get_transcription(url)
-        time.sleep(2)
+        time.sleep(5)
 
         # Stores them as a youtubevideo object
         yt_v = youtubevideo(
@@ -135,7 +135,7 @@ def search_video_extraction_program():
 
         # Increments URL number
         url_number += 1
-        time.sleep(2)
+        time.sleep(5)
 
 
 if __name__ == '__main__':
