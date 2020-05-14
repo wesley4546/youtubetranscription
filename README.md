@@ -6,6 +6,14 @@ This repository houses a progam that can extract key details and the auto-genera
 ## Tutorial
 It's rather easy!
 
+### Installing Requirements
+
+Make sure that you have all the modules installed from the `requirements.txt`
+
+To do this, open up the `youtubetranscription` folder in your command prompt.
+
+
+### Running the Program
  1) Run `main.py`
  1) Enter what you would like to search
  1) It will get the youtube videos from your search and download the different details of each video as well as the transcript into a csv file format.
