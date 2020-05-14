@@ -30,14 +30,24 @@ def get_video_info(url):
         # video title
         result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
 
-        # video views (converted to integer)
-        result['views'] = int(soup.find("div", attrs={"class": "watch-view-count"}).text[:-6].replace(",", ""))
+        try:
+            # video views (converted to integer)
+            result['views'] = int(
+                soup.find("div", attrs={"class": "watch-view-count"}).text[:-6].replace(",", ""))
+        except:
+            try:
+                result['views'] = int(
+                    soup.find("span", attrs={"class": "stat view-count"}).text[:-6].replace(",", "").replace("views",
+                                                                                                             ""))
+            except:
+                result['views'] = "Not Found (Perhaps Hidden)"
 
         # video description
         result['description'] = soup.find("p", attrs={"id": "eow-description"}).text
 
         # date published
-        result['date_published'] = soup.find("strong", attrs={"class": "watch-time-text"}).text
+        result['date_published'] = soup.find("strong", attrs={"class": "watch-time-text"}).text.replace(
+            "Published on ", "").replace("Premiered ", "")
 
         try:
             # number of likes as integer
