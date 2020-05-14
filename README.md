@@ -12,6 +12,7 @@ Make sure that you have all the modules installed from the `requirements.txt`
 
 To do this, open up the `youtubetranscription` folder in your command prompt.
 
+![Command Prompt Gif](tutorial/command_prompt_gif.gif)
 
 ### Running the Program
  1) Run `main.py`
