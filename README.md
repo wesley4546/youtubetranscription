@@ -14,6 +14,9 @@ To do this, open up the `youtubetranscription` folder in your command prompt.
 
 ![Command Prompt Gif](tutorial/command_prompt_gif.gif)
 
+Type the command `pip install -r requirements.txt`
+
+If not running on windows navigate to the `youtubetranscription` folder in your console and type the same thing `pip install -r requirements.txt`
 ### Running the Program
  1) Run `main.py`
  1) Enter what you would like to search
