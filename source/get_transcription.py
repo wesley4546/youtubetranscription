@@ -21,6 +21,7 @@ def get_transcription(url):
 
         list_of_transcripts = YouTubeTranscriptApi.list_transcripts(input_url_id)
         print("Checking for Transcriptions...")
+
         # Checks to see if a manual transcript is created if not, checks to see if a generated one is created
         if 'en-US' in list_of_transcripts._manually_created_transcripts:
             print("Manual Transcription Found.")
