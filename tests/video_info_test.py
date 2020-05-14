@@ -15,12 +15,14 @@ Excepted:
 All the keys should be filled in with the video information found on YouTube. 
 """
 
-url = "https://www.youtube.com/watch?v=Fqw-9yMV0sI"
+url = "https://www.youtube.com/watch?v=GmiXyTckcHk"
 
 # Main program
+print("Testing Main Program's get_video_info() function on URL...")
 video_info = get_video_info(url)
 
 # Testing
+print("Testing altered get_video_info() function on URL...")
 try:
 
     # requests URL
@@ -167,6 +169,7 @@ channel_subscribers = 'No Video Information Found'
 result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
 
 
+print("#----------------------- Results ------------------------#")
 # Checks to see if the blank result object was returned
 if result == result_blank:
     print("Blank result object tripped.")
