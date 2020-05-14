@@ -1,13 +1,16 @@
 import time
 import csv
 import sys
-from source.youtubescraper import get_video_info
-from source.get_transcription import get_transcription
-from source.youtubescraper import get_youtube_urls
+from source.youtube_scraper import get_video_info
+from source.youtube_get_transcription import get_transcription
+from source.youtube_scraper import get_youtube_urls
 
 
 # Creation of youtubevideo class
 class youtubevideo:
+    """
+    Class for the videos to be stored in
+    """
     def __init__(self, url, title, description, views, published, likes, dislikes, channel_name, channel_url,
                  channel_subscribers, transcription):
         self.url = url
@@ -29,9 +32,14 @@ class youtubevideo:
 
 
 # Creates a function to create a file name based off the keyword
-def paste_filename(keyword):
-    cleaned_keyword = keyword.replace(' ', '_')
+def paste_filename(search):
+    """
+    Function that will create a name for the files to be saved to using the search
+    """
+    # Removes any spaces
+    cleaned_keyword = search.replace(' ', '_')
 
+    # Adds 'videos.csv' at the end
     filename = cleaned_keyword + "_videos.csv"
 
     return filename
