@@ -18,13 +18,15 @@ Type the command `pip install -r requirements.txt`
 
 If not running on windows navigate to the `youtubetranscription` folder in your console and type the same thing `pip install -r requirements.txt`
 ### Running the Program
+
  1) Run `main.py`
  1) Enter what you would like to search
  1) It will get the youtube videos from your search and download the different details of each video as well as the transcript into a csv file format.
 
-
+## Other Information
 ### `youtubevideo` class
-The `youtubevideo` class has the following variables:
+
+Each video is made into a `youtubevideo` class and has the following variables:
  * `url` (the video's URL)
  * `title` (title of video)
  * `description` (description of video)
