@@ -1,5 +1,6 @@
 import requests
 import urllib.request
+import re
 from bs4 import BeautifulSoup as bs
 
 
@@ -38,11 +39,47 @@ def get_video_info(url):
         # date published
         result['date_published'] = soup.find("strong", attrs={"class": "watch-time-text"}).text
 
-        # number of likes as integer
-        result['likes'] = int(soup.find("button", attrs={"title": "I like this"}).text.replace(",", ""))
+        try:
+            # number of likes as integer
+            result['likes'] = int(soup.find("button", attrs={"title": "I like this"}).text.replace(",", ""))
 
-        # number of dislikes as integer
-        result['dislikes'] = int(soup.find("button", attrs={"title": "I dislike this"}).text.replace(",", ""))
+            # number of dislikes as integer
+            result['dislikes'] = int(
+                soup.find("button", attrs={"title": "I dislike this"}).text.replace(",", ""))
+        except:
+            try:
+                # This took me so long to figure out. If you can find a better way PLEASE let me know
+                # Saves FULL html file into a variable
+                video_html = soup.prettify()
+
+                # pattern to extract html code that has the like count
+                pattern_like = re.compile(r'\\"likeCount\\":[0-9]+[0-9]')
+
+                # pattern to extract numbers our of like count
+                pattern_like2 = re.compile(r'[0-9]+[0-9]')
+
+                # Finds the html code with likecount
+                matches_in_html_like = pattern_like.findall(video_html)
+
+                # Extracts the numbers from the html code
+                cleaned_html_number_like = int((pattern_like2.findall(''.join(matches_in_html_like)))[0])
+
+                result['likes'] = cleaned_html_number_like
+
+                pattern_dislike = re.compile(r'\\"dislikeCount\\":[0-9]+[0-9]')
+                # pattern to extract numbers our of like count
+                pattern_dislike2 = re.compile(r'[0-9]+[0-9]')
+
+                # Finds the html code with likecount
+                matches_in_html_dislike = pattern_dislike.findall(video_html)
+
+                # Extracts the numbers from the html code
+                cleaned_html_number_dislike = int((pattern_dislike2.findall(''.join(matches_in_html_dislike)))[0])
+
+                result['dislikes'] = cleaned_html_number_dislike
+            except:
+                result['likes'] = "Not Found (Perhaps Hidden)"
+                result['dislikes'] = "Not Found (Perhaps Hidden)"
 
         # channel details
         channel_tag = soup.find("div", attrs={"class": "yt-user-info"}).find("a")
@@ -55,7 +92,7 @@ def get_video_info(url):
         try:
             channel_subscribers = soup.find("span", attrs={"class": "yt-subscriber-count"}).text.strip()
         except:
-            channel_subscribers = "No Subscribers Found (Perhaps Hidden)"
+            channel_subscribers = "Not Found (Perhaps Hidden)"
 
         result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
 

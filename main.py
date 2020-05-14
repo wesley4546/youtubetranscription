@@ -1,5 +1,6 @@
 import time
 import csv
+import sys
 from source.youtubescraper import get_video_info
 from source.get_transcription import get_transcription
 from source.youtubescraper import get_youtube_urls
@@ -41,7 +42,7 @@ def keyword_video_extraction_program():
     url_number = 1
 
     # Takes a YouTube URL as input
-    input_keyword = input("Enter Keyword: ")
+    input_keyword = input("Enter YouTube Search: ")
 
     # Data used as each column
     csv_column_names = ['keyword', 'url', 'title', 'description', 'views', 'published', 'likes', 'dislikes',
@@ -71,10 +72,10 @@ def keyword_video_extraction_program():
 
         # Extracts the video information
         youtube_video_info = get_video_info(url)
-        time.sleep(5)
+        time.sleep(2)
         # Gets the YouTube transcriptions
         clean_transcription = get_transcription(url)
-        time.sleep(5)
+        time.sleep(2)
 
         # Stores them as a youtubevideo object
         yt_v = youtubevideo(
@@ -115,9 +116,10 @@ def keyword_video_extraction_program():
 
         print(f"{url_number} / {length_of_URLs} YouTube URLs Complete.")
         url_number += 1
-        time.sleep(5)
+        time.sleep(2)
 
 
 if __name__ == '__main__':
-    # Executes video extraction program
+    print("Welcome to the YouTube Transcription Program found at https://github.com/wesley4546/youtubetranscription")
     keyword_video_extraction_program()
+

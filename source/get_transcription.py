@@ -23,13 +23,13 @@ def get_transcription(url):
         print("Checking for Transcriptions...")
         # Checks to see if a manual transcript is created if not, checks to see if a generated one is created
         if 'en-US' in list_of_transcripts._manually_created_transcripts:
-            print("Manual Transcription Found")
+            print("Manual Transcription Found.")
             transcript = list_of_transcripts.find_manually_created_transcript(['en-US'])
         elif 'en' in list_of_transcripts._manually_created_transcripts:
-            print("Manual Transcription Found")
+            print("Manual Transcription Found.")
             transcript = list_of_transcripts.find_manually_created_transcript(['en'])
         elif 'en' in list_of_transcripts._generated_transcripts:
-            print("Auto-Generated Transcription Found")
+            print("Auto-Generated Transcription Found.")
             transcript = list_of_transcripts.find_generated_transcript(['en'])
 
         # Saves the transcript into a variable to iterate over
