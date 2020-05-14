@@ -51,7 +51,7 @@ def get_video_info(url):
         # channel URL
         channel_url = f"https://www.youtube.com{channel_tag['href']}"
 
-        # Some youtubers can hide their subscribtion count from public - This tests that
+        # Some youtubers can hide their subscription count from public - This tests that
         try:
             channel_subscribers = soup.find("span", attrs={"class": "yt-subscriber-count"}).text.strip()
         except:
