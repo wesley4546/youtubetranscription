@@ -30,7 +30,10 @@ def get_video_info(url):
         result = {}
 
         # video title
-        result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
+        try:
+            result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
+        except:
+            result['title'] = "Not Found (Perhaps Hidden)"
 
         # try-catch for finding video views using the HTML 'watch-view-count'
         try:

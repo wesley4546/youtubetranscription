@@ -33,7 +33,10 @@ try:
     result = {}
 
     # video title
-    result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
+    try:
+        result['title'] = soup.find("span", attrs={"class": "watch-title"}).text.strip()
+    except:
+        result['title'] = "Not Found (Perhaps Hidden)"
 
     # try-catch for finding video views using the HTML 'watch-view-count'
     try:
@@ -130,10 +133,11 @@ try:
     except:
         channel_subscribers = "Not Found (Perhaps Hidden)"
 
+    # Combines all channel aspects
     result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
 
 
-# If none of the information can be found will result in this a blank video info
+# Worst case scenario it returns  No Video Information Found
 except:
     # Returns an no video information found dictionary
     print("No Video Information Found.")
@@ -162,7 +166,6 @@ channel_url = 'No Video Information Found'
 channel_subscribers = 'No Video Information Found'
 result['channel'] = {'name': channel_name, 'url': channel_url, 'subscribers': channel_subscribers}
 
-are_they_equal = result == video_info
 
 # Checks to see if the blank result object was returned
 if result == result_blank:
