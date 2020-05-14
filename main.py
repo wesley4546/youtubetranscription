@@ -55,14 +55,14 @@ def keyword_video_extraction_program():
         writer = csv.writer(file)
         writer.writerow(csv_column_names)
 
-    print("Getting YouTube URLs based off keyword...")
+    print("Getting YouTube URLs based off search...")
     # Gets the list of URLs based off the keyword received
     list_of_urls = get_youtube_urls(input_keyword)
 
     # The number of URLS found
     length_of_URLs = len(list_of_urls)
 
-    print(f"{length_of_URLs} YouTube video URLs found from keyword")
+    print(f"{length_of_URLs} YouTube video URLs found from search")
 
     # Keeps track of the iteration of the URLS
     list_of_urls_index_counter = 0
