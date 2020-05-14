@@ -11,6 +11,7 @@ class youtubevideo:
     """
     Class for the videos to be stored in
     """
+
     def __init__(self, url, title, description, views, published, likes, dislikes, channel_name, channel_url,
                  channel_subscribers, transcription):
         self.url = url
@@ -56,6 +57,10 @@ def search_video_extraction_program():
     """
     url_number = 1
 
+    # Amount of time between each URL
+    time_sleep = 5
+    time_per_url = time_sleep * 3
+
     # Takes a YouTube URL as input
     input_keyword = input("Enter YouTube Search: ")
 
@@ -80,6 +85,10 @@ def search_video_extraction_program():
 
     print(f"{length_of_URLs} YouTube video URLs found from search")
 
+    # Calculates estimated time
+    estimated_time = time_per_url * length_of_URLs / 60
+    print(f"Estimated time until complete: {estimated_time} minutes")
+
     # Keeps track of the iteration of the URLS
     list_of_urls_index_counter = 0
 
@@ -88,11 +97,11 @@ def search_video_extraction_program():
 
         # Extracts the video information
         youtube_video_info = get_video_info(url)
-        time.sleep(5)
+        time.sleep(time_sleep)
 
         # Gets the YouTube transcriptions
         clean_transcription = get_transcription(url)
-        time.sleep(5)
+        time.sleep(time_sleep)
 
         # Stores them as a youtubevideo object
         yt_v = youtubevideo(
@@ -135,7 +144,7 @@ def search_video_extraction_program():
 
         # Increments URL number
         url_number += 1
-        time.sleep(5)
+        time.sleep(time_sleep)
 
 
 if __name__ == '__main__':
