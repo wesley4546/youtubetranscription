@@ -85,7 +85,7 @@ def search_video_extraction_program():
     # Estimating Time
     max_amount_of_time = (38 * number_of_URLs) / 60
     min_amount_of_time = (14 * number_of_URLs) / 60
-    print(f"Estimated time:{round(min_amount_of_time, 0)} - {round(max_amount_of_time, 0)} minutes")
+    print(f"Estimated time: {round(min_amount_of_time, 0)} - {round(max_amount_of_time, 0)} minutes")
 
     # Keeps track of the iteration of the URLS
     list_of_urls_index_counter = 0
