@@ -17,7 +17,7 @@ All the keys should be filled in with the video information found on YouTube.
 
 
 # Url to test
-url = "https://www.youtube.com/watch?v=unLLM3Jann8"
+url = "https://www.youtube.com/watch?v=qTwm_60TODQ"
 
 
 def test_video_info_url(get_video_info_list):
@@ -51,6 +51,7 @@ def test_video_info_url(get_video_info_list):
             print(f"{item}: Missing - X")
         else:
             print(f"{item}: Found - V")
+            print(get_video_info_list[item])
 
     for channel_descriptor in get_video_info_list['channel']:
         if get_video_info_list['channel'][channel_descriptor] == "Not Found (Perhaps Hidden)":
