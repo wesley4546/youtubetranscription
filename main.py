@@ -92,6 +92,7 @@ def search_video_extraction_program():
 
     # Gets time stared
     start_time = time.localtime()
+
     for url in list_of_urls:
         print(f"Starting URL {url_number}...")
 
