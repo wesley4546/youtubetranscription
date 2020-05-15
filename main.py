@@ -1,6 +1,7 @@
 import time
 import csv
 import sys
+from random import randint
 from source.youtube_scraping_functions import get_video_info
 from source.youtube_get_transcription import get_transcription
 from source.youtube_scraping_functions import get_youtube_urls
@@ -57,10 +58,6 @@ def search_video_extraction_program():
     """
     url_number = 1
 
-    # Amount of time between each URL
-    time_sleep = 5
-    time_per_url = time_sleep * 3
-
     # Takes a YouTube URL as input
     input_keyword = input("Enter YouTube Search: ")
 
@@ -81,27 +78,30 @@ def search_video_extraction_program():
     list_of_urls = get_youtube_urls(input_keyword)
 
     # The number of URLS found
-    length_of_URLs = len(list_of_urls)
+    number_of_URLs = len(list_of_urls)
 
-    print(f"{length_of_URLs} YouTube video URLs found from search")
+    print(f"{number_of_URLs} YouTube video URLs found from search")
 
-    # Calculates estimated time
-    estimated_time = time_per_url * length_of_URLs / 60
-    print(f"Estimated time until complete: {estimated_time} minutes")
+    # Estimating Time
+    max_amount_of_time = (38 * number_of_URLs) / 60
+    min_amount_of_time = (14 * number_of_URLs) / 60
+    print(f"Estimated time:{round(min_amount_of_time, 0)} - {round(max_amount_of_time, 0)} minutes")
 
     # Keeps track of the iteration of the URLS
     list_of_urls_index_counter = 0
 
+    # Gets time stared
+    start_time = time.localtime()
     for url in list_of_urls:
         print(f"Starting URL {url_number}...")
 
         # Extracts the video information
         youtube_video_info = get_video_info(url)
-        time.sleep(time_sleep)
+        time.sleep(randint(4, 10))
 
         # Gets the YouTube transcriptions
         clean_transcription = get_transcription(url)
-        time.sleep(time_sleep)
+        time.sleep(randint(5, 13))
 
         # Stores them as a youtubevideo object
         yt_v = youtubevideo(
@@ -140,11 +140,19 @@ def search_video_extraction_program():
             writer = csv.writer(file)
             writer.writerow(csv_file_rows)
 
-        print(f"{url_number} / {length_of_URLs} YouTube URLs Complete.")
+        print(f"{url_number} / {number_of_URLs} YouTube URLs Complete.")
 
         # Increments URL number
         url_number += 1
-        time.sleep(time_sleep)
+        time.sleep(randint(5, 15))
+
+    # Gets time at end
+    end_time = time.localtime()
+
+    # Amount of time passed
+    time_passed = end_time[4] - start_time[4]
+
+    print(f"Complete - Duration: ~{time_passed} minutes ")
 
 
 if __name__ == '__main__':

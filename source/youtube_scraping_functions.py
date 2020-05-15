@@ -114,7 +114,7 @@ def get_video_info(url):
 
         # channel name
         try:
-            channel_name = channel_tag.text
+            channel_name = soup.find("div", attrs={"class": "yt-user-info"}).find("a")
         except:
             channel_name = "Not Found (Perhaps Hidden)"
 
