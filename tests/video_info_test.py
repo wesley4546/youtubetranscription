@@ -17,7 +17,7 @@ All the keys should be filled in with the video information found on YouTube.
 
 
 # Url to test
-url = "https://www.youtube.com/watch?v=qTwm_60TODQ"
+url = "https://www.youtube.com/watch?v=MRNQb0Z7Z3Q"
 
 
 def test_video_info_url(get_video_info_list):
