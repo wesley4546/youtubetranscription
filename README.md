@@ -3,7 +3,7 @@
 ## Introduction
 This repository houses a progam that can extract key details and the auto-generated transcriptions from youtube videos. It uses `BeautifulSoup` for the details and `youtube_transcript_api` for the transcriptions. (All which are found in the `requirements.txt`)
 
-**Disclaimer: YouTube does not allow webscraping according their Terms of Service.**
+**Disclaimer: YouTube does not allow webscraping according to their Terms of Service.**
 
 > 3.) access the Service using any automated means (such as robots, botnets or scrapers) except (a) in the case of public search engines, in accordance with YouTube’s robots.txt file; or (b) with YouTube’s prior written permission; (https://www.youtube.com/static?template=terms)
 
